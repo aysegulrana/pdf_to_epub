@@ -1,0 +1,3 @@
+- add a UI 
+- better edge case handling
+- epub to pdf feature
