@@ -1,6 +1,6 @@
 # PDF to EPUB Converter
 
-A Python code that converts PDF documents to EPUB format with chapter detection, formatting preservation, and image extraction. The conversion is not perfect, there might be errors especially in the books with unconventional chapter structure. The code will be improved to handle more edge cases. 
+A Python code that converts PDF books to EPUB format with chapter detection, formatting preservation, and image extraction. The conversion is not perfect, there might be errors especially in the books with unconventional chapter structure. The code will be improved to handle more edge cases. 
 
 ## Features
 
