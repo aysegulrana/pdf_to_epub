@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Variables
     let selectedFile = null;
-    let convertedFile = null;
+    let convertedFileUrl = null;
 
     // Event Listeners for File Drop
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             statusArea.hidden = true;
             statusText.style.color = '';
-        }, 3000);
+        }, 5000);
     }
 
     // Handle conversion button click
@@ -109,100 +109,67 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('title', titleInput.value || selectedFile.name.replace('.pdf', ''));
         formData.append('author', authorInput.value || 'Unknown');
 
-        // Simulate progress (since we can't deploy a real backend yet)
-        simulateConversion(formData);
-    });
-
-    // Download the converted file
-    downloadBtn.addEventListener('click', function() {
-        if (!convertedFile) return;
-        
-        // In a real app, this would be a URL to the converted file
-        // For now, we'll create a simple blob
-        const blob = new Blob(['Simulated EPUB content'], { type: 'application/epub+zip' });
-        const url = URL.createObjectURL(blob);
-        
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = selectedFile.name.replace('.pdf', '.epub');
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    });
-
-    // Function to simulate the conversion process (since we don't have a real backend yet)
-    function simulateConversion(formData) {
         // Reset progress
         progressBar.style.width = '0%';
-        statusText.textContent = 'Converting...';
+        statusText.textContent = 'Uploading file...';
+        progressBar.style.width = '20%';
 
-        // Simulate progress updates
-        let progress = 0;
-        const interval = setInterval(() => {
-            progress += 5;
-            progressBar.style.width = `${progress}%`;
-            
-            if (progress >= 100) {
-                clearInterval(interval);
-                statusText.textContent = 'Conversion complete!';
-                
-                setTimeout(() => {
-                    // Hide status area and show result
-                    statusArea.hidden = true;
-                    resultArea.hidden = false;
-                    
-                    // Set the simulated converted file
-                    convertedFile = {
-                        name: selectedFile.name.replace('.pdf', '.epub'),
-                        type: 'application/epub+zip'
-                    };
-                    
-                    // Re-enable convert button
-                    convertBtn.disabled = false;
-                }, 500);
-            }
-        }, 150);
-
-        // In a real implementation, you would make an API call here
-        // For example:
-        
+        // Real API call to Netlify Function
         fetch('/.netlify/functions/convert-pdf', {
             method: 'POST',
             body: formData
         })
         .then(response => {
+            progressBar.style.width = '80%';
+            statusText.textContent = 'Processing file...';
+
             if (!response.ok) {
-                throw new Error('Conversion failed');
+                return response.json().then(err => {
+                    throw new Error(err.error || 'Conversion failed');
+                });
             }
+            
+            // For binary responses like EPUB files
             return response.blob();
         })
         .then(blob => {
-            convertedFile = new File([blob], selectedFile.name.replace('.pdf', '.epub'), {
-                type: 'application/epub+zip'
-            });
+            // Create a URL for the blob
+            convertedFileUrl = URL.createObjectURL(blob);
             
-            // Complete the progress bar
+            // Complete the progress
             progressBar.style.width = '100%';
+            statusText.textContent = 'Conversion complete!';
             
-            // Hide status area and show result
-            statusArea.hidden = true;
-            resultArea.hidden = false;
-            
-            // Re-enable convert button
-            convertBtn.disabled = false;
+            // Show the result area
+            setTimeout(() => {
+                statusArea.hidden = true;
+                resultArea.hidden = false;
+                convertBtn.disabled = false;
+            }, 500);
         })
         .catch(error => {
+            console.error('Conversion error:', error);
             showError('Conversion failed: ' + error.message);
             convertBtn.disabled = false;
         });
-        
-    }
+    });
 
-    // Add instructional messages
+    // Download the converted file
+    downloadBtn.addEventListener('click', function() {
+        if (!convertedFileUrl) return;
+        
+        const a = document.createElement('a');
+        a.href = convertedFileUrl;
+        a.download = selectedFile.name.replace('.pdf', '.epub');
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    });
+
+    // Add instructional message
     const instructionElem = document.createElement('p');
     instructionElem.className = 'instruction';
-    instructionElem.innerHTML = 'Note: Since this is a GitHub Pages demo, the file is processed in your browser. For large files, please use the <a href="https://github.com/aysegulrana/pdf_to_epub" target="_blank">command-line version</a>.';
+    instructionElem.innerHTML = 'Note: Processing may take a minute for large files. Maximum file size is 10MB.';
     instructionElem.style.textAlign = 'center';
     instructionElem.style.marginTop = '20px';
     instructionElem.style.fontSize = '0.9rem';

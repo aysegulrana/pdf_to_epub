@@ -2,5 +2,89 @@ __pycache__/
 *.py[cod]
 *$py.class
 .Python
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+package-lock.json
+yarn.lock
 
+# Python virtual environment
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Netlify
+.netlify/
+netlify/functions/.netlify
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# OS files
 .DS_Store
+Thumbs.db
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# IDE and editor directories
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# Build output
+build/
+out/
+
+# Local environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Temporary directories for PDF to EPUB conversion
+pdf_temp/
+epub_output/

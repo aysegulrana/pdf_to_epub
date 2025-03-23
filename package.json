@@ -1,0 +1,27 @@
+{
+  "name": "pdf-to-epub-converter",
+  "version": "1.0.0",
+  "description": "Convert PDF files to EPUB format",
+  "main": "pdf-to-epub.js",
+  "scripts": {
+    "start": "netlify dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pdf",
+    "epub",
+    "converter"
+  ],
+  "author": "Aysegul Rana",
+  "license": "MIT",
+  "dependencies": {
+    "busboy": "^1.6.0",
+    "epub-gen": "^0.1.0",
+    "minimist": "^1.2.8",
+    "pdf-lib": "^1.17.1",
+    "sharp": "^0.32.1"
+  },
+  "devDependencies": {
+    "netlify-cli": "^19.0.3"
+  }
+}
