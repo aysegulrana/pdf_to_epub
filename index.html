@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to EPUB Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-book"></i> PDF to EPUB Converter</h1>
+            <p>Convert your PDF documents to EPUB format for better reading on e-readers</p>
+        </header>
+
+        <main>
+            <div class="converter-card">
+                <div class="upload-area" id="dropArea">
+                    <i class="fas fa-file-pdf file-icon"></i>
+                    <p>Drag & drop your PDF here or</p>
+                    <label for="fileInput" class="upload-btn">Choose File</label>
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
+                    <p class="file-name" id="fileName">No file selected</p>
+                </div>
+
+                <div class="options">
+                    <div class="option-group">
+                        <label for="titleInput">Book Title (optional):</label>
+                        <input type="text" id="titleInput" placeholder="Leave blank to use filename">
+                    </div>
+                    <div class="option-group">
+                        <label for="authorInput">Author (optional):</label>
+                        <input type="text" id="authorInput" placeholder="Unknown">
+                    </div>
+                </div>
+
+                <button id="convertBtn" class="convert-btn" disabled>
+                    <i class="fas fa-sync-alt"></i> Convert to EPUB
+                </button>
+
+                <div class="status-area" id="statusArea" hidden>
+                    <div class="progress">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <p id="statusText">Converting...</p>
+                </div>
+
+                <div class="result-area" id="resultArea" hidden>
+                    <p>Conversion complete! Your EPUB file is ready.</p>
+                    <button id="downloadBtn" class="download-btn">
+                        <i class="fas fa-download"></i> Download EPUB
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <section class="features">
+            <h2>Features</h2>
+            <div class="feature-list">
+                <div class="feature">
+                    <i class="fas fa-book-open"></i>
+                    <h3>Chapter Detection</h3>
+                    <p>Automatically detects chapters for better navigation</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-text-height"></i>
+                    <p>Preserves text formatting including bold and italic text</p>
+                    <h3>Format Preservation</h3>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-image"></i>
+                    <h3>Image Support</h3>
+                    <p>Includes images from your PDF in the EPUB output</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>E-Reader Friendly</h3>
+                    <p>Optimized for comfortable reading on all devices</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Created by <a href="https://github.com/aysegulrana/pdf_to_epub" target="_blank">Aysegul Rana</a></p>
+            <p>
+                <a href="https://github.com/aysegulrana/pdf_to_epub" target="_blank" class="social-link">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
