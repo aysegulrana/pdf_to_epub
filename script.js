@@ -166,8 +166,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // In a real implementation, you would make an API call here
         // For example:
-        /*
-        fetch('https://your-api-endpoint.com/convert', {
+        
+        fetch('/.netlify/functions/convert-pdf', {
             method: 'POST',
             body: formData
         })
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
             showError('Conversion failed: ' + error.message);
             convertBtn.disabled = false;
         });
-        */
+        
     }
 
     // Add instructional messages
